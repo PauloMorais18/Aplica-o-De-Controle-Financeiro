@@ -1,0 +1,89 @@
+unit FormFuncoesGeral;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls; // Adicionada Vcl.ExtCtrls para reconhecer TPanel
+
+type
+  TFrmFuncoesGeral = class(TForm)
+    class procedure MudarFormPanel(var FormNome: TForm; FormClass: TFormClass; ParentPanel: TPanel);
+    class procedure MudarForm(var FormNome: TForm; FormClass: TFormClass); static;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmFuncoesGeral: TFrmFuncoesGeral;
+
+implementation
+
+{$R *.dfm}
+
+class procedure TFrmFuncoesGeral.MudarFormPanel(var FormNome: TForm; FormClass: TFormClass; ParentPanel: TPanel);
+begin
+   if Assigned(FormNome) then
+   begin
+      FormNome.Free;
+      FormNome := nil;
+   end;
+   FormNome := FormClass.Create(nil);
+   FormNome.Parent      := ParentPanel;
+   FormNome.Align       := alClient;
+   FormNome.BorderStyle := bsNone;
+   FormNome.Show;
+end;
+
+class procedure TFrmFuncoesGeral.MudarForm(var FormNome: TForm; FormClass: TFormClass);
+begin
+   if Assigned(FormNome) then
+   begin
+      FormNome.Free;
+      FormNome := nil;
+   end;
+   FormNome := FormClass.Create(nil);
+   FormNome.Show;
+end;
+
+//class procedure TFrmFuncoesGeral.MudarFormPanel(var FormNome: TForm; FormClass: TFormClass; ParentPanel: TPanel);
+//begin
+//   // Libera o formulário existente, se necessário
+//   if Assigned(FormNome) then
+//   begin
+//      FormNome.Free;
+//      FormNome := nil;
+//   end;
+//
+//   // Cria uma nova instância do formulário
+//   FormNome := FormClass.Create(nil);
+//   FormNome.Parent := ParentPanel;
+//   FormNome.Align := alClient;
+//   FormNome.BorderStyle := bsNone;
+//
+//   // Ajusta as dimensões do formulário ou dos componentes internos com base no ParentPanel
+//   if Assigned(ParentPanel) then
+//   begin
+//      FormNome.Width := ParentPanel.Width;
+//      FormNome.Height := ParentPanel.Height;
+//
+//      // Se o formulário possui componentes que precisam ser ajustados, adicione lógica específica aqui.
+//      if FormNome is TCustomForm then
+//      begin
+//         // Exemplo: Ajuste do tamanho de um TStringGrid ou outro componente específico no formulário
+//         if Assigned(FormNome.FindComponent('Grid')) then
+//         begin
+//            (FormNome.FindComponent('Grid') as TWinControl).Width := ParentPanel.Width;
+//            (FormNome.FindComponent('Grid') as TWinControl).Height := ParentPanel.Height;
+//         end;
+//      end;
+//   end;
+//
+//   // Mostra o formulário
+//   FormNome.Show;
+//end;
+
+end.
+

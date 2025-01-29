@@ -1,0 +1,39 @@
+unit TFuncoesProcedures;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FormPrincipal;
+
+type
+  TFormFuncoesProcedures = class(TForm)
+    class procedure MudarForm(var FormNome: TForm; FormClass: TFormClass); static;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormFuncoesProcedures: TFormFuncoesProcedures;
+
+implementation
+
+{$R *.dfm}
+
+class procedure TFormFuncoesProcedures.MudarForm(var FormNome: TForm; FormClass: TFormClass);
+begin
+   FormNome := FormClass.Create(nil);
+   FormNome.Parent      := FormPrincipal.pnlFormPrincipal;
+   FormNome.Align       := alClient;
+   FormNome.BorderStyle := bsNone;
+   try
+      FormNome.Show;
+   finally
+      FreeAndNil(FormNome);
+   end;
+end;
+
+end.
+

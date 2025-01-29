@@ -1,0 +1,52 @@
+unit FormFuncoesGeral;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls; // Adicionada Vcl.ExtCtrls para reconhecer TPanel
+
+type
+  TFrmFuncoesGeral = class(TForm)
+    class procedure MudarFormPanel(var FormNome: TForm; FormClass: TFormClass; ParentPanel: TPanel);
+    class procedure MudarForm(var FormNome: TForm; FormClass: TFormClass); static;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmFuncoesGeral: TFrmFuncoesGeral;
+
+implementation
+
+{$R *.dfm}
+
+class procedure TFrmFuncoesGeral.MudarFormPanel(var FormNome: TForm; FormClass: TFormClass; ParentPanel: TPanel);
+begin
+   if Assigned(FormNome) then
+   begin
+      FormNome.Free;
+      FormNome := nil;
+   end;
+   FormNome := FormClass.Create(nil);
+   FormNome.Parent      := ParentPanel; // Define o parent como o painel passado
+   FormNome.Align       := alClient;   // Ajusta ao tamanho do painel
+   FormNome.BorderStyle := bsNone;     // Remove borda
+   FormNome.Show;                      // Exibe o formulário
+end;
+
+class procedure TFrmFuncoesGeral.MudarForm(var FormNome: TForm; FormClass: TFormClass);
+begin
+   if Assigned(FormNome) then
+   begin
+      FormNome.Free;
+      FormNome := nil;
+   end;
+   FormNome := FormClass.Create(nil);
+   FormNome.Show;
+end;
+
+end.
+
